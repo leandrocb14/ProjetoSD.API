@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2050
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjetoSD.API", "ProjetoSD.API\ProjetoSD.API.csproj", "{859B307B-1DA8-40E2-878D-4C72449C1422}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{859B307B-1DA8-40E2-878D-4C72449C1422}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{859B307B-1DA8-40E2-878D-4C72449C1422}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{859B307B-1DA8-40E2-878D-4C72449C1422}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{859B307B-1DA8-40E2-878D-4C72449C1422}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E53D849A-DDC2-4957-A771-1914504A0A84}
+	EndGlobalSection
+	GlobalSection(AutomaticVersions) = postSolution
+		UpdateAssemblyVersion.Release|Any CPU = True
+		UpdateAssemblyFileVersion.Release|Any CPU = True
+		UpdateAssemblyInfoVersion.Release|Any CPU = False
+		AssemblyVersionSettings.Release|Any CPU = None.None.None.Increment
+		AssemblyFileVersionSettings.Release|Any CPU = None.None.None.Increment
+		UpdatePackageVersion.Release|Any CPU = False
+		AssemblyInfoVersionType.Release|Any CPU = SettingsVersion
+		InheritWinAppVersionFrom.Release|Any CPU = None
+	EndGlobalSection
+EndGlobal
