@@ -22,13 +22,13 @@ namespace ProjetoSD.API.Controllers
             this.UsuarioMedicoBLL = new UsuarioMedicoBLL();
         }
 
-        [HttpGet]
-        public HttpResponseMessage GetESUsuario(string email = "", string senha = "")
+        [HttpPost]
+        public HttpResponseMessage ValidaLogin(string email = "", string senha = "")
         {
             try
             {
-                Medico Medico = this.UsuarioMedicoBLL.BuscaUsuarioMedico(email, senha);
-                return Request.CreateResponse(HttpStatusCode.OK, Medico);
+                int CodeUser = this.UsuarioMedicoBLL.BuscaUsuarioMedico(email, senha);
+                return Request.CreateResponse(HttpStatusCode.OK, CodeUser);
             }
             catch (Exception ex)
             {
@@ -37,7 +37,7 @@ namespace ProjetoSD.API.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage PostUsuario(string crm = "", string nome = "", UF uF = UF.AC, string profissao = "", string email = "", string senha = "")
+        public HttpResponseMessage CadastraUsuario(string crm = "", string nome = "", UF uF = UF.AC, string profissao = "", string email = "", string senha = "")
         {
             try
             {
@@ -48,19 +48,6 @@ namespace ProjetoSD.API.Controllers
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
             }
-        }
-        [HttpPost]
-        public HttpResponseMessage PostUPDTUsuario(int? id, string novaSenha)
-        {
-            try
-            {
-                this.UsuarioMedicoBLL.AtualizaSenha(id, novaSenha);
-                return Request.CreateResponse(HttpStatusCode.OK);
-            }
-            catch (Exception ex)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
-            }
-        }
+        }        
     }
 }

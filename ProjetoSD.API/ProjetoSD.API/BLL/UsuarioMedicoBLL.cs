@@ -22,12 +22,11 @@ namespace ProjetoSD.API.BLL
         /// <param name="email">Representa o email do usuário.</param>
         /// <param name="senha">Representa a senha do usuário.</param>
         /// <returns>Retorna o restante das informações desse usuário</returns>
-        public Medico BuscaUsuarioMedico(string email, string senha)
+        public int BuscaUsuarioMedico(string email, string senha)
         {
             ValidaParametroEmBrancoOuVazio(email, "email");
             ValidaParametroEmBrancoOuVazio(senha, "senha");
-            Medico Medico = this.UsuarioDAO.BuscaUsuarioMedico(email, senha);
-            return Medico;
+            return this.UsuarioDAO.BuscaUsuarioMedico(email, senha);            
         }
 
         /// <summary>

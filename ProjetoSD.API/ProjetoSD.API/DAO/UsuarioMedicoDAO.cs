@@ -21,23 +21,14 @@ namespace ProjetoSD.API.DAO
         /// <param name="email">Representa o email do usuário.</param>
         /// <param name="senha">Representa a senha do usuário.</param>
         /// <returns></returns>
-        public Medico BuscaUsuarioMedico(string email, string senha)
+        public int BuscaUsuarioMedico(string email, string senha)
         {
             var query = from u in EntidadeContext.Usuarios
                         join m in EntidadeContext.Medicos on u.Id equals m.UsuarioId
                         where u.Email.Equals(email) && u.Senha.Equals(senha)
-                        select new Medico
-                        {
-                            Id = m.Id,
-                            CRM = m.CRM,
-                            Nome = m.Nome,
-                            UF = m.UF,
-                            Profissao = m.Profissao,
-                            UsuarioId = m.UsuarioId,
-                            Usuario = u
-                        };
-            Medico Medico = query.FirstOrDefault();
-            if (Medico == null)
+                        select m.UsuarioId;
+            int UserCode = query.FirstOrDefault();
+            if (UserCode == 0)
             {
                 throw new NullReferenceException("Usuário não encontrado.");
             }

@@ -21,7 +21,7 @@ namespace ProjetoSD.API.Controllers
             this.DoencaBLL = new DoencaBLL();
         }
         [HttpGet]
-        public HttpResponseMessage GetDoenca(string nomeDoenca = "")
+        public HttpResponseMessage BuscaPorNome(string nomeDoenca = "")
         {
             try
             {
@@ -34,7 +34,7 @@ namespace ProjetoSD.API.Controllers
             }
         }
         [HttpPost]
-        public HttpResponseMessage PostDoenca(string nomeDoenca = "", string descricao = "", string profilaxia = "")
+        public HttpResponseMessage Adiciona(string nomeDoenca = "", string descricao = "", string profilaxia = "")
         {
             try
             {
