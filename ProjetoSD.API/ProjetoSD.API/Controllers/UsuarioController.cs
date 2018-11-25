@@ -22,17 +22,48 @@ namespace ProjetoSD.API.Controllers
             this.UsuarioMedicoBLL = new UsuarioMedicoBLL();
         }
 
-        [HttpPost]
-        public HttpResponseMessage ValidaLogin(string email = "", string senha = "")
+        #region GetRequests
+        [HttpGet]
+        public HttpResponseMessage BuscaInformacoesUsuario(int idMedico = 0)
         {
             try
             {
-                int CodeUser = this.UsuarioMedicoBLL.BuscaUsuarioMedico(email, senha);
-                return Request.CreateResponse(HttpStatusCode.OK, CodeUser);
+                var usuario = this.UsuarioMedicoBLL.BuscaInformacoesUsuario(idMedico);
+                return Request.CreateResponse(HttpStatusCode.OK, usuario);
             }
             catch (Exception ex)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex.Message);
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+        #endregion
+
+        #region PostRequests
+        [HttpPost]
+        public HttpResponseMessage AlterarProfissaoUsuario(int idMedico = 0, string novaProfissao = "")
+        {
+            try
+            {
+                this.UsuarioMedicoBLL.AlterarProfissaoUsuario(idMedico, novaProfissao);
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public HttpResponseMessage AtualizaSenha(int idUsuario = 0, string novaSenha = "")
+        {
+            try
+            {
+                this.UsuarioMedicoBLL.AtualizaSenha(idUsuario, novaSenha);
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
             }
         }
 
@@ -48,6 +79,21 @@ namespace ProjetoSD.API.Controllers
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
             }
+        }
+
+        [HttpPost]
+        public HttpResponseMessage ValidaLogin(string email = "", string senha = "")
+        {
+            try
+            {
+                int CodeUser = this.UsuarioMedicoBLL.BuscaUsuarioMedico(email, senha);
+                return Request.CreateResponse(HttpStatusCode.OK, CodeUser);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex.Message);
+            }
         }        
+        #endregion
     }
 }

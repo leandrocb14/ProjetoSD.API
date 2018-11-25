@@ -45,11 +45,21 @@ namespace ProjetoSD.API.BLL
             this.UsuarioDAO.CadastraUsuario(crm, nome, uF, profissao, email, senha);
         }
 
-        public void AtualizaSenha(int? id, string novaSenha)
+        public void AtualizaSenha(int idUsuario, string novaSenha)
         {
-            ValidaParametroEmBrancoOuVazio(novaSenha, "novaSenha");
-            ValidaParametroEmBrancoOuVazio(Convert.ToString(id), "id");
-            this.UsuarioDAO.AtualizaSenha(id, novaSenha);
+            ValidaParametroEmBrancoOuVazio(novaSenha, "novaSenha");            
+            this.UsuarioDAO.AtualizaSenha(idUsuario, novaSenha);
+        }
+
+        public Medico BuscaInformacoesUsuario(int idMedico)
+        {               
+            return this.UsuarioDAO.BuscaInformacoesUsuario(idMedico);
+        }
+
+        public void AlterarProfissaoUsuario(int idMedico, string novaProfissao)
+        {
+            ValidaParametroEmBrancoOuVazio(novaProfissao, "novaProfissao");
+            this.UsuarioDAO.AlterarProfissaoUsuario(idMedico, novaProfissao);
         }
     }
 }

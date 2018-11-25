@@ -16,6 +16,65 @@ namespace ProjetoSD.API.DAO
         }
 
         /// <summary>
+        /// Verifica se email já é cadastrado.
+        /// </summary>
+        /// <exception cref="ArgumentException">Exception lançada quando o parâmetro <paramref name="email"/> já for cadastrado.</exception>
+        /// <param name="email">Representa o email a ser analisado.</param>
+        private void VerificaSeEmailEhCadastrado(string email)
+        {
+            var query = from q in EntidadeContext.Usuarios
+                        where q.Email.Equals(email)
+                        select q;
+            if (query.FirstOrDefault() != null)
+            {
+                throw new ArgumentException("O email já está cadastrado para um usuário!");
+            }
+        }
+        #region Métodos refatorados
+        /// <summary>
+        /// Verifica se <paramref name="crm"/> já está em uso.
+        /// </summary>
+        /// <exception cref="ArgumentException">Exception lançada quando é verificado que o parametro <paramref name="crm"/> está em uso.</exception>
+        /// <param name="crm">Representa o crm a ser analisado.</param>
+        private void VerificaSeCRMEhCadastrado(string crm)
+        {
+            var query = from q in EntidadeContext.Medicos
+                        where q.CRM.Equals(crm)
+                        select q;
+            if (query.FirstOrDefault() != null)
+            {
+                throw new ArgumentException("O CRM já está cadastrado para um usuário!");
+            }
+        }
+
+        private Medico BuscaMedico(int idMedico)
+        {
+            var query = from m in EntidadeContext.Medicos
+                        where m.Id.Equals(idMedico)
+                        select m;
+            var medico = query.FirstOrDefault();
+            if (medico == null)
+            {
+                throw new ArgumentException("Usuário não encontrados!");
+            }
+            return medico;
+        }
+        private Usuario BuscaUsuario(int idUsuario)
+        {
+            var query = from u in EntidadeContext.Usuarios
+                        where u.Id.Equals(idUsuario)
+                        select u;
+            var usuario = query.FirstOrDefault();
+            if (usuario == null)
+            {
+                throw new ArgumentException("Usuário não encontrado!");
+            }
+            return usuario;
+        }
+        #endregion
+
+        #region Métodos públicos
+        /// <summary>
         /// Usado para verificar a existencia da solicitação de login.
         /// </summary>
         /// <param name="email">Representa o email do usuário.</param>
@@ -48,50 +107,45 @@ namespace ProjetoSD.API.DAO
             this.EntidadeContext.SaveChanges();
         }
 
-        public void AtualizaSenha(int? id, string novaSenha)
+        public void AtualizaSenha(int idUsuario, string novaSenha)
         {
-            var query = from u in EntidadeContext.Usuarios
-                        where u.Id.Equals(id)
-                        select u;
-            if (query == null)
-            {
-                throw new ArgumentException("Não existe um usuário com esse id!");
-            }
-            Usuario usuario = query.FirstOrDefault();
+            var usuario = BuscaUsuario(idUsuario);
             usuario.Senha = novaSenha;
             EntidadeContext.SaveChanges();
-        }
+        }               
 
-        /// <summary>
-        /// Verifica se email já é cadastrado.
-        /// </summary>
-        /// <exception cref="ArgumentException">Exception lançada quando o parâmetro <paramref name="email"/> já for cadastrado.</exception>
-        /// <param name="email">Representa o email a ser analisado.</param>
-        private void VerificaSeEmailEhCadastrado(string email)
+        public Medico BuscaInformacoesUsuario(int idMedico)
         {
-            var query = from q in EntidadeContext.Usuarios
-                        where q.Email.Equals(email)
-                        select q;
-            if (query.FirstOrDefault() != null)
+            var query = from m in EntidadeContext.Medicos
+                        join u in EntidadeContext.Usuarios on m.UsuarioId equals u.Id
+                        where m.Id.Equals(idMedico)
+                        select new Medico
+                        {
+                            Id = m.Id,
+                            CRM = m.CRM,
+                            Nome = m.Nome,
+                            UF = m.UF,
+                            Profissao = m.Profissao,
+                            UsuarioId = m.UsuarioId,
+                            Usuario = new Usuario()
+                            {
+                                Id = u.Id,
+                                Email = u.Email
+                            }
+                        };
+            var medico = query.FirstOrDefault();
+            if (medico == null)
             {
-                throw new ArgumentException("O email já está cadastrado para um usuário!");
+                throw new ArgumentException("Usuário não encontrados!");
             }
+            return medico;
         }
-
-        /// <summary>
-        /// Verifica se <paramref name="crm"/> já está em uso.
-        /// </summary>
-        /// <exception cref="ArgumentException">Exception lançada quando é verificado que o parametro <paramref name="crm"/> está em uso.</exception>
-        /// <param name="crm">Representa o crm a ser analisado.</param>
-        private void VerificaSeCRMEhCadastrado(string crm)
+        public void AlterarProfissaoUsuario(int idMedico, string novaProfissao)
         {
-            var query = from q in EntidadeContext.Medicos
-                        where q.CRM.Equals(crm)
-                        select q;
-            if (query.FirstOrDefault() != null)
-            {
-                throw new ArgumentException("O CRM já está cadastrado para um usuário!");
-            }
+            var medico = BuscaMedico(idMedico);
+            medico.Profissao = novaProfissao;
+            EntidadeContext.SaveChanges();
         }
+        #endregion
     }
 }
