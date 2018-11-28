@@ -82,21 +82,24 @@ Password=@Leandro123;");
 
                 d.Property(cd => cd.Id).HasColumnName("CDOEID");
 
-                d.Property(cd => cd.Nome).HasColumnName("CDOENOME");
+                d.Property(cd => cd.Nome).HasColumnName("CDOEOQEH");
                 d.Property(cd => cd.Nome).HasColumnType("VARCHAR(30)");
                 d.Property(cd => cd.Nome).IsRequired();
 
-                d.Property(cd => cd.Descricao).HasColumnName("CDOEDESC");
+                d.Property(cd => cd.Descricao).HasColumnName("CDOETRATAMENTO");
                 d.Property(cd => cd.Descricao).HasColumnType("VARCHAR(500)");
                 d.Property(cd => cd.Descricao).IsRequired();
 
-                d.Property(cd => cd.Profilaxia).HasColumnName("CDOEPROFLAXIA");
+                d.Property(cd => cd.Profilaxia).HasColumnName("CDOEVITE");
                 d.Property(cd => cd.Profilaxia).HasColumnType("VARCHAR(500)");
                 d.Property(cd => cd.Profilaxia).IsRequired();
 
                 d.Property(cd => cd.TipoStatus).HasColumnName("CDOETIPOSTATUS");
                 d.Property(cd => cd.TipoStatus).HasConversion(cd => cd.ToString(), cd => (TipoStatus)Enum.Parse(typeof(TipoStatus), cd));
                 d.Property(cd => cd.TipoStatus).HasDefaultValue(TipoStatus.S);
+
+                d.Property(cd => cd.MedicoId).HasColumnName("CDOEMEDICID");
+                d.HasOne(cd => cd.Medico).WithMany(cm => cm.Doencas).HasForeignKey(cd => cd.MedicoId);
             });
             #endregion
         }

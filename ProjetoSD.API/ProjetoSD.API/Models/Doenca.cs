@@ -12,14 +12,17 @@ namespace ProjetoSD.API.Models
         public string Descricao { get; set; }
         public string Profilaxia { get; set; }
         public TipoStatus TipoStatus { get; set; }
+        public int MedicoId { get; set; }
+        public Medico Medico { get; set; }
 
         public Doenca()
         {
 
         }
 
-        public Doenca(string nome, string descricao, string profilaxia)
+        public Doenca(int medicoId,string nome, string descricao, string profilaxia)
         {
+            this.MedicoId = medicoId;
             Nome = nome;
             Descricao = descricao;
             Profilaxia = profilaxia;

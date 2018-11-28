@@ -14,6 +14,7 @@ namespace ProjetoSD.API.Models
         public string Profissao { get; set; }
         public int UsuarioId { get; set; }
         public Usuario Usuario { get; set; }
+        public List<Doenca> Doencas { get; set; }
 
         public Medico()
         {

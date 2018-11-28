@@ -34,11 +34,11 @@ namespace ProjetoSD.API.Controllers
             }
         }
         [HttpPost]
-        public HttpResponseMessage Adiciona(string nomeDoenca = "", string descricao = "", string profilaxia = "")
+        public HttpResponseMessage Adiciona(int idMedico = 0, string oQueEh = "", string tratamento = "", string evite = "")
         {
             try
             {
-                this.DoencaBLL.AdicionarDoenca(nomeDoenca, descricao, profilaxia);
+                this.DoencaBLL.AdicionarDoenca(idMedico, oQueEh, tratamento, evite);
                 return Request.CreateResponse(HttpStatusCode.Created);
             }
             catch (Exception ex)

@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjetoSD.API.DAO;
 
 namespace ProjetoSD.WebAPI.Migrations
 {
     [DbContext(typeof(EntidadeContext))]
-    partial class EntidadeContextModelSnapshot : ModelSnapshot
+    [Migration("20181128021424_RelationMedicoInDoenca")]
+    partial class RelationMedicoInDoenca
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

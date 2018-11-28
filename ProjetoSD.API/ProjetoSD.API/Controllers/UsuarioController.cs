@@ -54,11 +54,11 @@ namespace ProjetoSD.API.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage AtualizaSenha(int idUsuario = 0, string novaSenha = "")
+        public HttpResponseMessage AtualizaSenha(int idMedico = 0, string novaSenha = "")
         {
             try
             {
-                this.UsuarioMedicoBLL.AtualizaSenha(idUsuario, novaSenha);
+                this.UsuarioMedicoBLL.AtualizaSenha(idMedico, novaSenha);
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
             catch (Exception ex)

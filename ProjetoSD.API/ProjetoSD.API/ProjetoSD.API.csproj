@@ -222,6 +222,14 @@
     <Compile Include="Migrations\20181110030124_CreateTableDoenca.designer.cs">
       <DependentUpon>20181110030124_CreateTableDoenca.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20181126233356_UpdateNameColumnsTDOE.cs" />
+    <Compile Include="Migrations\20181126233356_UpdateNameColumnsTDOE.designer.cs">
+      <DependentUpon>20181126233356_UpdateNameColumnsTDOE.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20181128021424_RelationMedicoInDoenca.cs" />
+    <Compile Include="Migrations\20181128021424_RelationMedicoInDoenca.designer.cs">
+      <DependentUpon>20181128021424_RelationMedicoInDoenca.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\EntidadeContextModelSnapshot.cs" />
     <Compile Include="Models\Doenca.cs" />
     <Compile Include="Models\UF.cs" />

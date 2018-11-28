@@ -25,9 +25,9 @@ namespace ProjetoSD.API.DAO
             }
             return query.ToList();
         }
-        public void CadastrarDoenca(string nomeDoenca, string descricao, string profilaxia)
+        public void CadastrarDoenca(int idMedico, string oQueEh, string tratamento, string evite)
         {
-            this.EntidadeContext.Doencas.Add(new Doenca(nomeDoenca, descricao, profilaxia));
+            this.EntidadeContext.Doencas.Add(new Doenca(idMedico, oQueEh, tratamento, evite));
             this.EntidadeContext.SaveChanges();
         }
     }

@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjetoSD.API.DAO;
 
 namespace ProjetoSD.WebAPI.Migrations
 {
     [DbContext(typeof(EntidadeContext))]
-    partial class EntidadeContextModelSnapshot : ModelSnapshot
+    [Migration("20181126233356_UpdateNameColumnsTDOE")]
+    partial class UpdateNameColumnsTDOE
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,9 +32,6 @@ namespace ProjetoSD.WebAPI.Migrations
                         .HasColumnName("CDOETRATAMENTO")
                         .HasColumnType("VARCHAR(500)");
 
-                    b.Property<int>("MedicoId")
-                        .HasColumnName("CDOEMEDICID");
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnName("CDOEOQEH")
@@ -50,8 +49,6 @@ namespace ProjetoSD.WebAPI.Migrations
                         .HasDefaultValue("S");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MedicoId");
 
                     b.ToTable("TDOE");
                 });
@@ -124,14 +121,6 @@ namespace ProjetoSD.WebAPI.Migrations
                         .IsUnique();
 
                     b.ToTable("TUSU");
-                });
-
-            modelBuilder.Entity("ProjetoSD.API.Models.Doenca", b =>
-                {
-                    b.HasOne("ProjetoSD.API.Models.Medico", "Medico")
-                        .WithMany("Doencas")
-                        .HasForeignKey("MedicoId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ProjetoSD.API.Models.Medico", b =>

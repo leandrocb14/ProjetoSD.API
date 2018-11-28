@@ -20,12 +20,12 @@ namespace ProjetoSD.API.BLL
             ValidaParametroEmBrancoOuVazio(nomeDoenca, "nomeDoenca");
             return DoencaDAO.BuscarDoenca(nomeDoenca);
         }
-        public void AdicionarDoenca(string nomeDoenca, string descricao, string profilaxia)
+        public void AdicionarDoenca(int idMedico, string oQueEh, string tratamento, string evite)
         {
-            ValidaParametroEmBrancoOuVazio(nomeDoenca, "nomeDoenca");
-            ValidaParametroEmBrancoOuVazio(descricao, "descricao");
-            ValidaParametroEmBrancoOuVazio(profilaxia, "profilaxia");
-            this.DoencaDAO.CadastrarDoenca(nomeDoenca, descricao, profilaxia);
+            ValidaParametroEmBrancoOuVazio(oQueEh, "oQueEh");
+            ValidaParametroEmBrancoOuVazio(tratamento, "tratamento");
+            ValidaParametroEmBrancoOuVazio(evite, "evite");
+            this.DoencaDAO.CadastrarDoenca(idMedico, oQueEh, tratamento, evite);
         }
     }
 }

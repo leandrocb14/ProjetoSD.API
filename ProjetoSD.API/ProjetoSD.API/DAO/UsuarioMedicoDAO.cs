@@ -59,10 +59,11 @@ namespace ProjetoSD.API.DAO
             }
             return medico;
         }
-        private Usuario BuscaUsuario(int idUsuario)
+        private Usuario BuscaUsuarioMedico(int idMedico)
         {
             var query = from u in EntidadeContext.Usuarios
-                        where u.Id.Equals(idUsuario)
+                        join m in EntidadeContext.Medicos on u.Id equals m.UsuarioId
+                        where m.Id.Equals(idMedico)
                         select u;
             var usuario = query.FirstOrDefault();
             if (usuario == null)
@@ -107,12 +108,12 @@ namespace ProjetoSD.API.DAO
             this.EntidadeContext.SaveChanges();
         }
 
-        public void AtualizaSenha(int idUsuario, string novaSenha)
+        public void AtualizaSenha(int idMedico, string novaSenha)
         {
-            var usuario = BuscaUsuario(idUsuario);
+            var usuario = BuscaUsuarioMedico(idMedico);
             usuario.Senha = novaSenha;
             EntidadeContext.SaveChanges();
-        }               
+        }
 
         public Medico BuscaInformacoesUsuario(int idMedico)
         {
