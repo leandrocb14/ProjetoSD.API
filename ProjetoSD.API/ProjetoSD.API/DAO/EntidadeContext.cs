@@ -9,13 +9,16 @@ namespace ProjetoSD.API.DAO
 {
     public class EntidadeContext : DbContext
     {
+        #region Propriedades
         private string StringConnectionSqlServer = string.Format(@"Server=LAPTOP-8T8282R9;Database=ProjetoSD;User Id=sa;
 Password=@Leandro123;");
 
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Medico> Medicos { get; set; }
         public DbSet<Doenca> Doencas { get; set; }
+        #endregion
 
+        #region Métodos
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(StringConnectionSqlServer);
@@ -103,5 +106,6 @@ Password=@Leandro123;");
             });
             #endregion
         }
+        #endregion
     }
 }

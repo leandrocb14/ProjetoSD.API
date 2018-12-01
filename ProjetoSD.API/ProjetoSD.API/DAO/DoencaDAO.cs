@@ -1,4 +1,5 @@
-﻿using ProjetoSD.API.Models;
+﻿using ProjetoSD.API.Exceptions;
+using ProjetoSD.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +9,18 @@ namespace ProjetoSD.API.DAO
 {
     public class DoencaDAO
     {
+        #region Propriedades
         private EntidadeContext EntidadeContext;
+        #endregion
+
+        #region Construtores
         public DoencaDAO()
         {
             this.EntidadeContext = new EntidadeContext();
         }
+        #endregion
 
+        #region Métodos Publicos
         public List<Doenca> BuscarDoenca(string nomeDoenca)
         {
             var query = from d in EntidadeContext.Doencas
@@ -21,7 +28,7 @@ namespace ProjetoSD.API.DAO
                         select d;
             if (query.Count() == 0)
             {
-                throw new ArgumentException("Não existe nenhuma doença com esse nome.");
+                throw new NomeDaDoencaNaoEncontradaException("Não existe nenhuma doença com esse nome.");
             }
             return query.ToList();
         }
@@ -30,5 +37,6 @@ namespace ProjetoSD.API.DAO
             this.EntidadeContext.Doencas.Add(new Doenca(idMedico, oQueEh, tratamento, evite));
             this.EntidadeContext.SaveChanges();
         }
+        #endregion
     }
 }

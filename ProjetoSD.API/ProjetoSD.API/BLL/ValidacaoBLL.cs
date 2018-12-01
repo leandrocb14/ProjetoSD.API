@@ -7,6 +7,7 @@ namespace ProjetoSD.API.BLL
 {
     public class ValidacaoBLL
     {
+        #region Métodos Publicos
         /// <summary>
         /// Valida <paramref name="valorParametro"/> se é nulo ou vazio.
         /// </summary>
@@ -20,5 +21,6 @@ namespace ProjetoSD.API.BLL
                 throw new ArgumentException(string.Format($"O parâmetro {nomeParametro} é de preenchimento obrigatório"));
             }
         }
+        #endregion
     }
 }

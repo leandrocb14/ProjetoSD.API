@@ -1,4 +1,5 @@
 ﻿using ProjetoSD.API.BLL;
+using ProjetoSD.API.Exceptions;
 using ProjetoSD.API.Models;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,10 @@ namespace ProjetoSD.API.Controllers
             {
                 var usuario = this.UsuarioMedicoBLL.BuscaInformacoesUsuario(idMedico);
                 return Request.CreateResponse(HttpStatusCode.OK, usuario);
+            }
+            catch (MedicoNaoEncontradoException ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex.Message);
             }
             catch (Exception ex)
             {

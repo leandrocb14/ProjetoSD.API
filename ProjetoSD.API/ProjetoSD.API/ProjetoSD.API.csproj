@@ -195,6 +195,11 @@
     <Compile Include="DAO\DoencaDAO.cs" />
     <Compile Include="DAO\EntidadeContext.cs" />
     <Compile Include="DAO\UsuarioMedicoDAO.cs" />
+    <Compile Include="Exceptions\CRMJaCadastradoException.cs" />
+    <Compile Include="Exceptions\EmailJaCadastradoException.cs" />
+    <Compile Include="Exceptions\MedicoNaoEncontradoException.cs" />
+    <Compile Include="Exceptions\NomeDaDoencaNaoEncontradaException.cs" />
+    <Compile Include="Exceptions\UsuarioNaoEncontradoException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

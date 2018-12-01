@@ -1,4 +1,5 @@
-﻿using ProjetoSD.API.Models;
+﻿using ProjetoSD.API.Exceptions;
+using ProjetoSD.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,17 +9,23 @@ namespace ProjetoSD.API.DAO
 {
     public class UsuarioMedicoDAO
     {
+        #region Propriedades
         private EntidadeContext EntidadeContext;
+        #endregion
 
+        #region Construtores
         public UsuarioMedicoDAO()
         {
             this.EntidadeContext = new EntidadeContext();
         }
+        #endregion
+
+        #region Métodos Privados
 
         /// <summary>
         /// Verifica se email já é cadastrado.
         /// </summary>
-        /// <exception cref="ArgumentException">Exception lançada quando o parâmetro <paramref name="email"/> já for cadastrado.</exception>
+        /// <exception cref="EmailJaCadastradoException">Exception lançada quando o parâmetro <paramref name="email"/> já for cadastrado.</exception>
         /// <param name="email">Representa o email a ser analisado.</param>
         private void VerificaSeEmailEhCadastrado(string email)
         {
@@ -27,14 +34,14 @@ namespace ProjetoSD.API.DAO
                         select q;
             if (query.FirstOrDefault() != null)
             {
-                throw new ArgumentException("O email já está cadastrado para um usuário!");
+                throw new EmailJaCadastradoException("O email já está cadastrado para um usuário!");
             }
         }
-        #region Métodos refatorados
+        
         /// <summary>
         /// Verifica se <paramref name="crm"/> já está em uso.
         /// </summary>
-        /// <exception cref="ArgumentException">Exception lançada quando é verificado que o parametro <paramref name="crm"/> está em uso.</exception>
+        /// <exception cref="CRMJaCadastradoException">Exception lançada quando é verificado que o parametro <paramref name="crm"/> está em uso.</exception>
         /// <param name="crm">Representa o crm a ser analisado.</param>
         private void VerificaSeCRMEhCadastrado(string crm)
         {
@@ -43,10 +50,16 @@ namespace ProjetoSD.API.DAO
                         select q;
             if (query.FirstOrDefault() != null)
             {
-                throw new ArgumentException("O CRM já está cadastrado para um usuário!");
+                throw new CRMJaCadastradoException("O CRM já está cadastrado para um usuário!");
             }
         }
 
+        /// <summary>
+        /// Método utilizado para buscar informações do usuário
+        /// </summary>
+        /// <exception cref="MedicoNaoEncontradoException">Exception lançada quando não é encontrado nenhum usuário com <paramref name="idMedico"/>.</exception>
+        /// <param name="idMedico">Representa o código do usuário</param>
+        /// <returns></returns>
         private Medico BuscaMedico(int idMedico)
         {
             var query = from m in EntidadeContext.Medicos
@@ -55,10 +68,17 @@ namespace ProjetoSD.API.DAO
             var medico = query.FirstOrDefault();
             if (medico == null)
             {
-                throw new ArgumentException("Usuário não encontrados!");
+                throw new MedicoNaoEncontradoException("Usuário não encontrados!");
             }
             return medico;
         }
+
+        /// <summary>
+        /// Método utilizado para buscar informações do usuário.
+        /// </summary>
+        /// <exception cref="UsuarioNaoEncontradoException">Exception lançada quando não é encontrado nenhum usuário com <paramref name="idMedico"/>.</exception>
+        /// <param name="idMedico">Representa o código a ser buscado.</param>
+        /// <returns></returns>
         private Usuario BuscaUsuarioMedico(int idMedico)
         {
             var query = from u in EntidadeContext.Usuarios
@@ -68,7 +88,7 @@ namespace ProjetoSD.API.DAO
             var usuario = query.FirstOrDefault();
             if (usuario == null)
             {
-                throw new ArgumentException("Usuário não encontrado!");
+                throw new UsuarioNaoEncontradoException("Usuário não encontrado!");
             }
             return usuario;
         }
@@ -78,6 +98,7 @@ namespace ProjetoSD.API.DAO
         /// <summary>
         /// Usado para verificar a existencia da solicitação de login.
         /// </summary>
+        /// <exception cref="UsuarioNaoEncontradoException">Exception lançada quando não é encontrado nenhum usuário com <paramref name="email"/> e <paramref name="senha"/></exception>
         /// <param name="email">Representa o email do usuário.</param>
         /// <param name="senha">Representa a senha do usuário.</param>
         /// <returns></returns>
@@ -90,7 +111,7 @@ namespace ProjetoSD.API.DAO
             int UserCode = query.FirstOrDefault();
             if (UserCode == 0)
             {
-                throw new NullReferenceException("Usuário não encontrado.");
+                throw new UsuarioNaoEncontradoException("Usuário não encontrado.");
             }
             return query.FirstOrDefault();
         }
@@ -108,6 +129,11 @@ namespace ProjetoSD.API.DAO
             this.EntidadeContext.SaveChanges();
         }
 
+        /// <summary>
+        /// Método utilizado para alterar a senha do usuário.
+        /// </summary>
+        /// <param name="idMedico">Representa o código de usuário a ser alterado.</param>
+        /// <param name="novaSenha">Representa a nova senha do usuário.</param>
         public void AtualizaSenha(int idMedico, string novaSenha)
         {
             var usuario = BuscaUsuarioMedico(idMedico);
@@ -115,6 +141,12 @@ namespace ProjetoSD.API.DAO
             EntidadeContext.SaveChanges();
         }
 
+        /// <summary>
+        /// Método utilizado para buscar informações gerais do usuário
+        /// </summary>
+        /// <exception cref="MedicoNaoEncontradoException">Exception lançada quando não existe nenhum médico com <paramref name="idMedico"/>.</exception>
+        /// <param name="idMedico">Representa o código a ser buscado.</param>
+        /// <returns></returns>
         public Medico BuscaInformacoesUsuario(int idMedico)
         {
             var query = from m in EntidadeContext.Medicos
@@ -137,10 +169,16 @@ namespace ProjetoSD.API.DAO
             var medico = query.FirstOrDefault();
             if (medico == null)
             {
-                throw new ArgumentException("Usuário não encontrados!");
+                throw new MedicoNaoEncontradoException("Usuário não encontrados!");
             }
             return medico;
         }
+
+        /// <summary>
+        /// Método utilizado para alterar os dados do profissional.
+        /// </summary>
+        /// <param name="idMedico">Representa o código do usuário a ser alterado.</param>
+        /// <param name="novaProfissao">Representa a nova profissão do usuário.</param>
         public void AlterarProfissaoUsuario(int idMedico, string novaProfissao)
         {
             var medico = BuscaMedico(idMedico);
