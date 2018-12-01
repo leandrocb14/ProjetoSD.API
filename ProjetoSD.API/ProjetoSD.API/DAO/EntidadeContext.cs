@@ -10,8 +10,7 @@ namespace ProjetoSD.API.DAO
     public class EntidadeContext : DbContext
     {
         #region Propriedades
-        private string StringConnectionSqlServer = string.Format(@"Server=LAPTOP-8T8282R9;Database=ProjetoSD;User Id=sa;
-Password=@Leandro123;");
+        private string StringConnectionSqlServer = string.Format(@"Server=tcp:leandrocb.database.windows.net,1433;Initial Catalog=ProjetoSD;Persist Security Info=False;User ID=leandrocb;Password=@Leandro123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
 
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Medico> Medicos { get; set; }
