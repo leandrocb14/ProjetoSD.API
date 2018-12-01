@@ -52,6 +52,10 @@ namespace ProjetoSD.API.Controllers
                 this.UsuarioMedicoBLL.AlterarProfissaoUsuario(idMedico, novaProfissao);
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
+            catch (MedicoNaoEncontradoException ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex.Message);
+            }
             catch (Exception ex)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
@@ -65,6 +69,10 @@ namespace ProjetoSD.API.Controllers
             {
                 this.UsuarioMedicoBLL.AtualizaSenha(idMedico, novaSenha);
                 return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (UsuarioNaoEncontradoException ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex.Message);
             }
             catch (Exception ex)
             {

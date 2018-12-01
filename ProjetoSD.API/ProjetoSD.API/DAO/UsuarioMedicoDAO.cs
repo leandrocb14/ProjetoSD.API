@@ -83,7 +83,7 @@ namespace ProjetoSD.API.DAO
         {
             var query = from u in EntidadeContext.Usuarios
                         join m in EntidadeContext.Medicos on u.Id equals m.UsuarioId
-                        where m.Id.Equals(idMedico)
+                        where m.Id.Equals(idMedico) && u.TipoStatus.Equals(TipoStatus.S)
                         select u;
             var usuario = query.FirstOrDefault();
             if (usuario == null)
@@ -106,7 +106,7 @@ namespace ProjetoSD.API.DAO
         {
             var query = from u in EntidadeContext.Usuarios
                         join m in EntidadeContext.Medicos on u.Id equals m.UsuarioId
-                        where u.Email.Equals(email) && u.Senha.Equals(senha)
+                        where (u.Email.Equals(email) && u.Senha.Equals(senha)) && u.TipoStatus.Equals(TipoStatus.S)
                         select m.UsuarioId;
             int UserCode = query.FirstOrDefault();
             if (UserCode == 0)
@@ -151,7 +151,7 @@ namespace ProjetoSD.API.DAO
         {
             var query = from m in EntidadeContext.Medicos
                         join u in EntidadeContext.Usuarios on m.UsuarioId equals u.Id
-                        where m.Id.Equals(idMedico)
+                        where m.Id.Equals(idMedico) && u.TipoStatus.Equals(TipoStatus.S)
                         select new Medico
                         {
                             Id = m.Id,

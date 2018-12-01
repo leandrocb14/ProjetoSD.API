@@ -20,19 +20,19 @@ namespace ProjetoSD.API.Controllers
         {
             this.DoencaBLL = new DoencaBLL();
         }
-        [HttpGet]
-        public HttpResponseMessage BuscaPorNome(string nomeDoenca = "")
-        {
-            try
-            {
-                List<Doenca> doencas = this.DoencaBLL.BuscarDoenca(nomeDoenca);
-                return Request.CreateResponse(HttpStatusCode.OK, doencas);
-            }
-            catch (Exception ex)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex.Message);
-            }
-        }
+        //[HttpGet]
+        //public HttpResponseMessage BuscaPorNome(string nomeDoenca = "")
+        //{
+        //    try
+        //    {
+        //        List<Doenca> doencas = this.DoencaBLL.BuscarDoenca(nomeDoenca);
+        //        return Request.CreateResponse(HttpStatusCode.OK, doencas);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex.Message);
+        //    }
+        //}
         [HttpPost]
         public HttpResponseMessage Adiciona(int idMedico = 0, string oQueEh = "", string tratamento = "", string evite = "")
         {
